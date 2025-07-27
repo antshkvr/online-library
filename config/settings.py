@@ -127,6 +127,6 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 REDIS_HOST = os.getenv("REDIS_HOST", "redis")
-REDIS_PORT = int(os.getenv('REDIS_PORT', 6379))
+REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
 
 redis_instance = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=0)
