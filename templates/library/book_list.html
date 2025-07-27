@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <h1>Books</h1>
+
+  <form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Filter</button>
+  </form>
+
+  <ul>
+    {% for book in filter.qs %}
+      <li>
+        <a href="{% url 'library:book_detail' book.pk %}">{{ book.title }}</a> —
+        {{ book.author }} ({{ book.genre }})
+      </li>
+    {% empty %}
+      <li>No matching books</li>
+    {% endfor %}
+  </ul>
+
+  {% if user.is_authenticated %}
+    <a href="{% url 'library:book_create' %}">Add book</a>
+  {% endif %}
+{% endblock %}

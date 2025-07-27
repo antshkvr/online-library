@@ -15,18 +15,18 @@ import os
 import redis
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-!2#7n-c*4&ge^ap@xg+ws-q1c#0ycxaz=^=w9n9lm0mv+_c44j"
+SECRET_KEY = os.getenv("SECRET_KEY", 'secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -56,7 +56,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -79,7 +79,7 @@ DATABASES = {
         "NAME": os.getenv("POSTGRES_DB", "library_db"),
         "USER": os.getenv("POSTGRES_USER", "library_db_user"),
         "PASSWORD": os.getenv("POSTGRES_PASSWORD", "library_password"),
-        "HOST": os.getenv("POSTGRES_HOST", "localhost"),
+        "HOST": os.getenv("POSTGRES_HOST", "db"),
         "PORT": os.getenv("POSTGRES_PORT", "5432"),
     }
 }
@@ -130,3 +130,6 @@ REDIS_HOST = os.getenv("REDIS_HOST", "redis")
 REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
 
 redis_instance = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=0)
+
+LOGIN_REDIRECT_URL = "library:book_list"
+LOGOUT_REDIRECT_URL = "library:book_list"

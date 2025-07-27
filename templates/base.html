@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Online Library</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 15px;
+      background: #f9f9f9;
+      color: #333;
+    }
+    a {
+      color: #2a7ae2;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    h1, h2 {
+      color: #222;
+    }
+    form {
+      margin-bottom: 20px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 6px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    form button {
+      background: #2a7ae2;
+      border: none;
+      padding: 8px 16px;
+      color: white;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    form button:hover {
+      background: #1f5bb5;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    li {
+      padding: 8px 0;
+      border-bottom: 1px solid #ddd;
+    }
+    li:last-child {
+      border-bottom: none;
+    }
+    p {
+      line-height: 1.5;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 20px 0;
+    }
+    .nav {
+      margin-bottom: 20px;
+    }
+    .nav p {
+      margin: 0;
+    }
+    .nav a {
+      margin-left: 10px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+  {% if user.is_authenticated %}
+    <p>Logged in as {{ user.username }}! <a href="{% url 'library:logout' %}">Logout</a></p>
+  {% else %}
+    <p><a href="{% url 'library:login' %}">Login</a></p>
+  {% endif %}
+  </div>
+  <hr>
+  {% block content %}{% endblock %}
+</body>
+</html>
