@@ -2,3 +2,4 @@ Django>=4.2
 django-filter
 redis
 psycopg2-binary
+black==24.4.2
